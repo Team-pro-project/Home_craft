@@ -28,9 +28,9 @@ sequelize.authenticate()
     .catch((err) => console.error("❌ Database connection failed:", err));
 
 // Sync Database Globally
-// sequelize.sync({ alter: true })
-//     .then(() => console.log("✅ Database synced successfully!"))
-//     .catch((err) => console.error("❌ Database sync failed:", err));
+sequelize.sync({ alter: true })
+    .then(() => console.log("✅ Database synced successfully!"))
+    .catch((err) => console.error("❌ Database sync failed:", err));
 
 module.exports = {
     sequelize,
