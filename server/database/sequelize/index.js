@@ -7,10 +7,10 @@ const sequelize = new Sequelize( "home_craft" , "root", "root",
   );
 
 // User Model with Roles
-const User = require("../User")(sequelize, DataTypes);
-const Category = require("../Category")(sequelize, DataTypes);
-const Product = require("../Product")(sequelize, DataTypes);
-const Order = require("../Order")(sequelize, DataTypes);
+const User = require("../User.model.js")(sequelize, DataTypes);
+const Category = require("../Category.model.js")(sequelize, DataTypes);
+const Product = require("../Product.model.js")(sequelize, DataTypes);
+const Order = require("../Order.model.js")(sequelize, DataTypes);
 
 // Define Relationships with ON DELETE CASCADE
 
