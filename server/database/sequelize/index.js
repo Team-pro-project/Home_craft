@@ -28,6 +28,7 @@ sequelize.authenticate()
     .catch((err) => console.error("❌ Database connection failed:", err));
 
 // Sync Database Globally
+// Comment out to use migrations instead
 // sequelize.sync({ alter: true })
 //     .then(() => console.log("✅ Database synced successfully!"))
 //     .catch((err) => console.error("❌ Database sync failed:", err));
