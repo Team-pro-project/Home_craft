@@ -1,4 +1,4 @@
-const {sequelize,user}=require("../database/sequelize/index")
+const {sequelize,User}=require("../database/sequelize/index")
 const bcrypt = require('bcrypt');
 let env = require('dotenv').config();
 var jwt = require('jsonwebtoken');
@@ -9,7 +9,7 @@ module.exports={
     login: async (req, res) => {
         try {
           const { name, password } = req.body;
-          const user = await db.User.findOne({ where: { name: name } });
+          const user = await User.findOne({ where: { name: name } });
           if (!user) {
             return res.json("user not found");
           }
@@ -31,7 +31,7 @@ module.exports={
           
           const hash = await bcrypt.hash(newUser.password, 10)
           newUser.password = hash;
-          const user = await db.User.create(newUser); 
+          const user = await User.create(newUser); 
           res.send({ message: "user created", id: user.id });
         } catch (error) {
           console.error(error);
