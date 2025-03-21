@@ -1,61 +1,58 @@
-import axios from "axios";
-import OnePost from './OneProduct.jsx'
-import { useEffect, useState } from "react";
-import Search from "./Search.jsx";
+import React, { useEffect, useState } from 'react';
 
-function AllProduct() {
-    const [data, setData] = useState([]);
-    const [refresh, setrefresh] = useState(true);
+const SittingRoom = () => {
+  const [products, setProducts] = useState([]);
 
+  useEffect(() => {
+    fetch('http:localhost:5000/api/products')
+      .then(response => response.json())
+      .then(data => setProducts(data))
+      .catch(error => console.error('Error fetching products:', error));
+  }, []);
 
-    const lookForOne = async (searchTerm) => {
-        try {
-            const response = await axios.get(
-                `http://localhost:5000/api/Products/${searchTerm}`
-            );
-            setData(response.data);
-        } catch (error) {
-            console.log(error, "error");
-        }
-    };
+  return (
+    <div className="sitting-room">
+      <h1>Sitting Room</h1>
+      <p>Transform your sitting room with our elegant and functional seating options, perfect for every modern home.</p>
 
+      <h2>Top Products</h2>
+      <div className="product-list">
+        {products.map(product => (
+          <div className="product" key={product.id}>
+            <h3>{product.name}</h3>
+            <p>${product.price}</p>
+            <p>${product.description}</p>
+            <ul>
+              {product.items && product.items.map((item, index) => (
+                <li key={index}>{item.name} - ${item.price}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
 
-    const fetch = async () => {
-        try {
-            const response = await axios.get(
-                "http://localhost:5000/api/Products/getAllProduct"
-            );
-            setData(response.data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-    useEffect(() => {
-        fetch();
-    }, [refresh]);
+      <h2>People Also Viewed</h2>
+      <div className="product-list">
+        {products.slice(0, 1).map(product => (
+          <div className="product" key={product.id}>
+            <h3>{product.name}</h3>
+            <p>${product.price}</p>
+            <ul>
+              {product.items && product.items.map((item, index) => (
+                <li key={index}>{item.imageUrl} - ${item.name} - ${item.price} - ${ item.description}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
 
-    console.log(data, 'data');
+      <h2>Oasis</h2>
+      <div className="oasis">
+        <h3>Motor A (Prix) / Belt / Backer A</h3>
+        
+      </div>
+    </div>
+  );
+};
 
-    return (
-        <div className="flex flex-col">
-            <div className="flex justify-center gap-4 mt-3">
-
-                <Search lookForOne={lookForOne} />
-            </div>
-
-            <div className='justify-center gap-3 flex flex-wrap mt-7' >
-
-                {data.map((e, i) => {
-                    return (
-                        <div className=' ' key={e.id}>
-                            <OnePost e={e} i={i} />
-                        </div>
-
-                    )
-                })}
-            </div>
-        </div>
-    )
-}
-
-export default AllPosts
+export default SittingRoom;

@@ -1,29 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-function OnePost({ e, i }) {
-    const [description, setDescription] = useState("");
-
+function OneProduct({ e: { id, name, imageUrl, description }, buyNow }) {
     return (
         <div>
-            <h2>{e.name}</h2>
-            <img className='size-[250px]' src={e.imageUrl} alt={e.name} />
+            <h2>{name}</h2>
+            <img className='w-[250px] h-[250px]' src={imageUrl} alt={`Image of ${name}`} />
             <h3>
-                {e.description ? e.description.slice(0, 50) + (e.description.length > 50 ? "..." : "") : "No description available"}
+                {typeof description === 'string' ? description.slice(0, 50) + (description.length > 50 ? "..." : "") : "No description available"}
             </h3>
-
             <div className='flex justify-center my-2'>
                 <button
                     className='border rounded-2xl w-[90px] hover:bg-black hover:text-white cursor-pointer'
-                    onClick={() => buyNow(e.id)}
+                    onClick={() => buyNow(id)}
                 >
                     Buy Now
                 </button>
-
             </div>
         </div>
-    )
+    );
 }
 
+OneProduct.propTypes = {
+    e: PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        name: PropTypes.string.isRequired,
+        imageUrl: PropTypes.string.isRequired,
+        description: PropTypes.string,
+    }).isRequired,
+    buyNow: PropTypes.func.isRequired,
+};
 
-
-export default OnePost;
+export default OneProduct;

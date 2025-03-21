@@ -3,17 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-<<<<<<< HEAD
     "dev": "nodemon index.js"
-=======
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "db:seed": "npx sequelize-cli db:seed:all",
-    "db:seed:undo": "npx sequelize-cli db:seed:undo:all",
-    "db:create": "npx sequelize-cli db:create",
-    "db:migrate": "npx sequelize-cli db:migrate",
-    "db:reset": "npx sequelize-cli db:drop && npm run db:create && npm run db:migrate && npm run db:seed"
->>>>>>> 45b97c865e2653ea882a841f7b8c494f6be2b5f7
   },
   "keywords": [],
   "author": "",

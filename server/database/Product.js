@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         }, // Product type replaces subcategory
         price: { type: DataTypes.DECIMAL(10, 2), allowNull: false },
         stock: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
-        imageUrl: { type: DataTypes.STRING }
+        imageUrl: { type: DataTypes.STRING , allowNull: false },
     });
     return Product
 }
