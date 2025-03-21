@@ -8,18 +8,23 @@ console.log("env",env);
 module.exports={
     login: async (req, res) => {
         try {
-          const { name, password } = req.body;
-          const user = await User.findOne({ where: { name: name } });
+          const { email, password } = req.body;
+          console.log(email , "user");
+          const user = await User.findOne({ where: { email: email } });
+      
+
           if (!user) {
             return res.json("user not found");
           }
     
           const passwordMatch = await bcrypt.compare(password, user.password);
           if (!passwordMatch) {
-            return res.json(error);
+            console.log("doesnt match");
+            
           }
-          const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' })
-          res.json({ token });
+          
+          const token = jwt.sign({ id: user.id  }, process.env.JWT_SECRET, { expiresIn: '1h' })
+          res.json({ token , role : user.role });
         } catch (error) {
           console.error(error);
         }
@@ -31,6 +36,8 @@ module.exports={
           
           const hash = await bcrypt.hash(newUser.password, 10)
           newUser.password = hash;
+          console.log(newUser);
+          
           const user = await User.create(newUser); 
           res.send({ message: "user created", id: user.id });
         } catch (error) {

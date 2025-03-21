@@ -1,23 +1,27 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {useNavigate} from "react-router"
+
  
 const Signup =()=>{
+  const nav = useNavigate()
 
-    const [username, setUsername] = useState("");
+    const [email, setemail] = useState("");
     const [password, setPassword] = useState("");
   
     const signup = async (event) => {
       event.preventDefault();
       const user = {
-        username,
-        password,
+       email : email,
+        password
       };
   
       axios.post("http://localhost:5000/user/signup", user)
         .then((response)=> { 
           setPassword("");
-          setUsername("");
+          setemail("");
           console.log(response.data);
+          nav("/login")
   
         })
         
@@ -29,14 +33,22 @@ const Signup =()=>{
     return (
       <div id="login-form">
         <h1>Signup</h1>
+        <div id="member">
+          <h6>Already have an account ? <a href="/login"> Log in</a></h6>
+
+        </div>
+
+
+
+
         <form onSubmit={signup}>
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="email">email:</label>
           <input
             type="text"
-            id="username"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            id="email"
+            name="email"
+            value={email}
+            onChange={(e) => setemail(e.target.value)}
           />
           <label htmlFor="password">Password:</label>
           <input

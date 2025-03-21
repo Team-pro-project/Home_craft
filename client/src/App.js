@@ -1,25 +1,41 @@
-import React, { Component }  from "react";
-import { BrowserRouter as Router, Routes, Route , Navigate } from "react-router-dom";
+import './App.css';
+import Navbar from './layouts/navbar';
+import Footer from './layouts/footer';
+import Home from './pages/home/Home';
+import Test from "./components/Test.jsx"
+
+import React from "react";
+import { BrowserRouter as Router, Routes, Route ,Navigate} from 'react-router';
+
 import Signup from "./components/Sign.up.jsx";
 import Login from "./components/Log.in.jsx";
-import Test from "./Component/Test.jsx";
 
 const App = () => {
   const token = localStorage.getItem("token")
+let role = JSON.parse(token) || {}
+// console.log(role.role);
 
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Signup />} />
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/protected"
-          element={
-           token ?  <Test /> : <Navigate to="/login" />
-          }
-        />
-      </Routes>
+        
+        {/* <Route
+          path="/private"  element= { role.role === "admin" ?  <Test /> : <Navigate to="/home" />  }
+        
+        /> */}
+
+        </Routes>
+        <Footer />
+      </div>
     </Router>
+
+   
+  
   );
 };
 
