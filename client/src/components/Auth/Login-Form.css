@@ -1,0 +1,96 @@
+/* Luxury Minimalist Form Styles */
+#login-form {
+    width: 380px;
+    max-width: 100%;
+    margin: 60px auto;
+    background-color: #f9f6f2; /* Soft beige */
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    font-family: "Poppins", sans-serif;
+    padding: 10px;
+  }
+  
+  #login-form h1 {
+    text-align: center;
+    margin: 0;
+    padding: 25px 0;
+    font-size: 26px;
+    font-weight: 600;
+    color: #3a3a3a; /* Deep charcoal */
+    letter-spacing: 1px;
+  }
+  
+  #login-form form {
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+  
+  #login-form form label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #7a7a7a; /* Muted gray */
+    font-weight: 500;
+  }
+  
+  #login-form form input[type="text"],
+  #login-form form input[type="password"] {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: #fafafa; /* Subtle white */
+    transition: all 0.3s ease-in-out;
+  }
+  
+  #login-form form input[type="text"]:focus,
+  #login-form form input[type="password"]:focus {
+    border-color: #a48f73; /* Soft luxury brown */
+    outline: none;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(164, 143, 115, 0.2);
+  }
+  
+  #login-form form input[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background-color: #a48f73; /* Luxury brown */
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  #login-form form input[type="submit"]:hover {
+    background-color: #8c7760; /* Darker luxury brown */
+    box-shadow: 0 6px 12px rgba(140, 119, 96, 0.3);
+  }
+  
+  /* Subtle link styling */
+  #member {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  #member h6 {
+    font-size: 14px;
+    color: #7a7a7a;
+  }
+  
+  #member a {
+    color: #a48f73;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  #member a:hover {
+    text-decoration: underline;
+  }
+  

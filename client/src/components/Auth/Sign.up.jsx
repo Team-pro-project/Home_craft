@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import {useNavigate} from "react-router"
-
+import "./Login-Form.css"
  
 const Signup =()=>{
   const nav = useNavigate()
@@ -12,7 +12,7 @@ const Signup =()=>{
     const signup = async (event) => {
       event.preventDefault();
       const user = {
-       email : email,
+       email ,
         password
       };
   

@@ -2,13 +2,13 @@ import './App.css';
 import Navbar from './layouts/navbar';
 import Footer from './layouts/footer';
 import Home from './pages/home/Home';
-import Test from "./components/Test.jsx"
+import Test from "./components/Auth/Test.jsx"
 
 import React from "react";
 import { BrowserRouter as Router, Routes, Route ,Navigate} from 'react-router';
 
-import Signup from "./components/Sign.up.jsx";
-import Login from "./components/Log.in.jsx";
+import Signup from "./components/Auth/Sign.up.jsx";
+import Login from "./components/Auth/Log.in.jsx";
 
 const App = () => {
   const token = localStorage.getItem("token")

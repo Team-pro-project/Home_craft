@@ -1,15 +1,24 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import user from "../assets/user.png"
+import homecraftLogo from '../assets/Logo.png';
+
+
+
 
 const Navbar = () => {
+
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
       <div className="container d-flex justify-content-between">
         {/* Brand Logo */}
-        <a className="navbar-brand fw-bold fs-5" href="#">
-          HomeCraft
+        <a className="navbar-brand fw-bold fs-5" href="/">
+
+        <img src={homecraftLogo} alt="HomeCraft Logo" 
+        style={{ width: "150px", height: "80px" }} 
+        />
+
         </a>
 
         {/* Search Bar - Visible on desktop */}

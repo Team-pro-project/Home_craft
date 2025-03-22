@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import "./Login-Form.css"
+ 
 
 const Login = () => {
   const [email, setemail] = useState("");
@@ -22,14 +24,23 @@ const nav = useNavigate()
       .post("http://localhost:5000/user/login", user)
       .then((response) => {
       let res = JSON.stringify(response.data)
-      localStorage.setItem("token", res)
-       setemail("");
-        setPassword("");
+  
+   
 
-        nav("/")
+      localStorage.setItem("token", res)
+      if(res){
+       nav("/")
+        }
+        else{
+          alert("incorrect password ")
+          setemail("");
+        setPassword("")
+        }
+       
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error)
+       
       });
   };
 
