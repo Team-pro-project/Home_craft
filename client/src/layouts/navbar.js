@@ -1,12 +1,18 @@
 import React  , {useState}from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { useCart } from "../components/Cart/CartContext.jsx";
+import Cart from "../components/Cart/Cart.jsx";
 import homecraftLogo from '../assets/Logo.png';
 import Signup from "../components/Auth/Sign.up";
 
 
 
 const Navbar = () => {
+  const { getTotalItems } = useCart();
+  
+  // State to handle cart sidebar visibility will be managed by Cart component
+
 
   const [sidebarVisible, setSidebarVisible] = useState(false);
 
@@ -112,21 +118,25 @@ const Navbar = () => {
         </div>
       ) : null}
         {/* Move Cart Icon and Get Started Button inside collapsed menu and align them right */}
+
+        {/* Cart and Get Started Button */}
         <div className="d-flex align-items-center ms-auto mt-3 mt-lg-0">
-          {/* Cart Icon with Badge */}
-          <div className="position-relative me-3">
-            <i className="bi bi-cart fs-4 text-dark"></i>
-            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              3
-            </span>
-          </div>
+          {/* Cart Component */}
+          <Cart navbarMode={true} />
 
           {/* Get Started Button */}
        
+          <a
+            href="#"
+            className="btn btn-primary px-4 rounded-pill ms-3"
+            style={{ minWidth: "150px" }}
+          >
+            Get Started <i className="bi bi-arrow-right"></i>
+          </a>
         </div>
       </div>
     </nav>
   );
 };
-
+}
 export default Navbar;

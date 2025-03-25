@@ -1,6 +1,9 @@
 import { Card, Button } from "react-bootstrap"
 import { Link } from "react-router"
 import { FaShoppingCart } from "react-icons/fa"
+import { Card } from "react-bootstrap"
+import { Link } from "react-router-dom"
+import AddToCartButton from "./Cart/AddToCartButton.jsx"
 
 const ProductCard = ({ product }) => {
   const { id, name, price, image, colors } = product
@@ -23,9 +26,11 @@ const ProductCard = ({ product }) => {
               <span key={index} className="color-option" style={{ backgroundColor: color }} title={color}></span>
             ))}
         </div>
-        <Button variant="outline-primary" className="mt-auto d-flex align-items-center justify-content-center">
-          <FaShoppingCart className="me-2" /> Add to cart
-        </Button>
+        <AddToCartButton 
+          product={product}
+          className="mt-auto"
+          variant="outline"
+        />
       </Card.Body>
     </Card>
   )
