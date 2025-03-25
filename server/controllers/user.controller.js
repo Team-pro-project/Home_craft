@@ -18,13 +18,18 @@ module.exports={
           }
     
           const passwordMatch = await bcrypt.compare(password, user.password);
+          console.log(passwordMatch, 'sss');
+          
           if (!passwordMatch) {
             console.log("doesnt match");
-            
+            res.send("INCORRCT password")
           }
+          else {   
+            
+            const token = jwt.sign({ id: user.id  }, process.env.JWT_SECRET, { expiresIn: '1h' })
+          res.json({ token , role : user.role });}
           
-          const token = jwt.sign({ id: user.id  }, process.env.JWT_SECRET, { expiresIn: '1h' })
-          res.json({ token , role : user.role });
+       
         } catch (error) {
           console.error(error);
         }
@@ -33,10 +38,10 @@ module.exports={
       signup: async (req, res) => {
         const newUser = req.body;
         try {
-          
+       
           const hash = await bcrypt.hash(newUser.password, 10)
           newUser.password = hash;
-          console.log(newUser);
+         
           
           const user = await User.create(newUser); 
           res.send({ message: "user created", id: user.id });
@@ -44,9 +49,12 @@ module.exports={
           console.error(error);
           res.send("user exist")
         }
-      } 
+      }
           
     
 
     
 }
+
+
+

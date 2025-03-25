@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import "./Login-Form.css"
- 
+import Swal from 'sweetalert2'
 
 const Login = () => {
   const [email, setemail] = useState("");
@@ -23,16 +23,20 @@ const nav = useNavigate()
     axios
       .post("http://localhost:5000/user/login", user)
       .then((response) => {
-      let res = JSON.stringify(response.data)
-  
-   
-
-      localStorage.setItem("token", res)
-      if(res){
+    console.log(response)
+    ;
+       if(response.data.token){
+        let res = JSON.stringify(response.data)
+         localStorage.setItem("token", res)
        nav("/")
         }
         else{
-          alert("incorrect password ")
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "wrong password",
+            footer: '<a href="#">reset your password</a>'
+          });
           setemail("");
         setPassword("")
         }

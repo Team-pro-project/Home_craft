@@ -1,13 +1,14 @@
-import React from "react";
+import React  , {useState}from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import homecraftLogo from '../assets/Logo.png';
-
+import Signup from "../components/Auth/Sign.up";
 
 
 
 const Navbar = () => {
 
+  const [sidebarVisible, setSidebarVisible] = useState(false);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
@@ -68,14 +69,48 @@ const Navbar = () => {
               Categories
             </a>
           </li>
-          <li className="nav-item">
-            <a className="nav-link fw-semibold mx-2" href="/signup">
+          <li className="nav-item"   >
+            <a className="nav-link fw-semibold mx-2" >
            < img src="https://cdn-icons-png.flaticon.com/512/5087/5087592.png" 
+           onClick={() => setSidebarVisible(true)}
              style={{ width: "32px", height: "32px", marginBottom: "4px" }} /> 
             </a>
           </li>
         </ul>
-
+        {sidebarVisible ? (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            right: 0,
+            width: "800px",
+            height: "100%",
+            backgroundColor: "#f4f4f4",
+            boxShadow: "-4px 0px 10px rgba(0, 0, 0, 0.2)",
+            zIndex: 1000,
+            transition: "transform 0.3s ease",
+          }}
+        >
+  <button 
+  style={{ 
+    position: "absolute", 
+    top: "10px", 
+    left: "10px", 
+    fontSize: "20px", 
+    cursor: "pointer",
+    background: "none",
+    border: "none",
+    padding: 0,
+    margin: 0
+  }} 
+  onClick={() => setSidebarVisible(!sidebarVisible)}
+>
+  &#10005;
+</button>
+       
+          <Signup />
+        </div>
+      ) : null}
         {/* Move Cart Icon and Get Started Button inside collapsed menu and align them right */}
         <div className="d-flex align-items-center ms-auto mt-3 mt-lg-0">
           {/* Cart Icon with Badge */}
