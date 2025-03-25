@@ -1,8 +1,23 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import "./App.css";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import allProduct from "./components/AllProducts.jsx";
+
+
+function App() {
+  return (
+    <>
+      <BrowserRouter> 
+        <Navbar />
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/Product-list" element={<allProduct />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
+}
+
+export default App;

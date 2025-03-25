@@ -3,13 +3,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useCart } from "../components/Cart/CartContext.jsx";
 import Cart from "../components/Cart/Cart.jsx";
-import homecraftLogo from '../assets/Logo.png';
-import Signup from "../components/Auth/Sign.up";
-
-
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { getTotalItems } = useCart();
+
+  const navigate = useNavigate();
   
   // State to handle cart sidebar visibility will be managed by Cart component
 
@@ -65,7 +64,8 @@ const Navbar = () => {
               Home
             </a>
           </li>
-          <li className="nav-item">
+          <li className="nav-item" onClick={()=> navigate('/AllProducts')}>
+            
             <a className="nav-link fw-semibold mx-2" href="#">
               Shop
             </a>

@@ -3,6 +3,9 @@ const cors = require("cors");
 const userroute=require("./routes/User.route")
 require("./database/sequelize/index");
 const { sequelize, User, Category, Product, Order } = require("./database/sequelize/index");
+require("./database/sequelize/index");
+const  Product  = require("./database/Product.model");
+const productRoute=require("./routes/Product.route")
 const app = express();
 const PORT = 5000;
 
@@ -31,6 +34,7 @@ app.use(express.json());
 
 
 app.use("/user",userroute)
+app.use( "/api/products", productRoute );
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
