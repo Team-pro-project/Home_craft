@@ -93,24 +93,7 @@ module.exports = {
                 stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
             });
         }
-    }
-};
-updateProduct: async(req ,res)=>{
-  try{
-    var {id}=req.params
-    var updatePost=await Product.update(req.body,{
-      where:{
-        id:id,
-      },
-      
-    })
-    res.json('updated')
-  }
-  catch (err){
-    res.send(err)
-  }
-},
-
+    },
  searchprod : async (req, res) => {
   try {
     const { search } = req.query;
@@ -134,5 +117,4 @@ updateProduct: async(req ,res)=>{
   }
 }
 
-}
 };
