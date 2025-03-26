@@ -1,15 +1,10 @@
-const {Product}=require('../database/sequelize/index');
+const {Product, Category}=require('../database/sequelize/index');
 const { Op } = require("sequelize");
 module.exports = {
     getAllProduct: async (req, res) => {
         try {
             console.log("Fetching all products...");
-            const products = await Product.findAll({
-                include: [{
-                    model: Category,
-                    attributes: ['name']
-                }]
-            });
+            const products = await Product.findAll();
             console.log(`Found ${products.length} products`);
             res.json(products);
         } catch (error) {
