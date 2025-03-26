@@ -9,8 +9,16 @@ module.exports = (sequelize, DataTypes) => {
         }, // Product type replaces subcategory
         price: { type: DataTypes.DECIMAL(10, 2), allowNull: false },
         stock: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
-        imageUrl: { type: DataTypes.STRING ,allowNull:false},
-        category: { type: DataTypes.ENUM("sitting room","gaming room","bathroom","bedroom","outdoor","kitchen") },
+        imageUrl: { type: DataTypes.STRING, allowNull: false },
+        category: { type: DataTypes.ENUM("sitting room", "gaming room", "bathroom", "bedroom", "outdoor", "kitchen") },
+        categoryId: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            references: {
+                model: 'Categories',
+                key: 'id'
+            }
+        }
     });
     return Product
 }

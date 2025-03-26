@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = new Sequelize( "home_craft" , "root", "root",
+const sequelize = new Sequelize( "home_craft" , "root", "Sgdkkt123",
     {
       host: "localhost",
       dialect: "mysql",
@@ -12,26 +12,47 @@ const Category = require("../Category.model")(sequelize, DataTypes);
 const Product = require("../Product.model")(sequelize, DataTypes);
 const Order = require("../Order.model")(sequelize, DataTypes);
 
-// Define Relationships with ON DELETE CASCADE
+// Define Relationships
 
 // Category → Product (One-to-Many)
-Category.hasMany(Product, { foreignKey: "categoryId", onDelete: "CASCADE" });
-Product.belongsTo(Category, { foreignKey: "categoryId" });
+Category.hasMany(Product, { 
+    foreignKey: "categoryId",
+    onDelete: "SET NULL"
+});
+Product.belongsTo(Category, { 
+    foreignKey: "categoryId",
+    onDelete: "SET NULL"
+});
 
-// Many-to-Many Relation: User ↔ Product via Order
-User.belongsToMany(Product, { through: Order, foreignKey: "userId", onDelete: "CASCADE" });
-Product.belongsToMany(User, { through: Order, foreignKey: "productId", onDelete: "CASCADE" });
+// User → Order (One-to-Many)
+User.hasMany(Order, { 
+    foreignKey: "userId",
+    onDelete: "CASCADE"
+});
+Order.belongsTo(User, { 
+    foreignKey: "userId",
+    onDelete: "CASCADE"
+});
+
+// Product → Order (One-to-Many)
+Product.hasMany(Order, { 
+    foreignKey: "productId",
+    onDelete: "CASCADE"
+});
+Order.belongsTo(Product, { 
+    foreignKey: "productId",
+    onDelete: "CASCADE"
+});
 
 // Authenticate Database
 sequelize.authenticate()
     .then(() => console.log("✅ Database connected successfully!"))
     .catch((err) => console.error("❌ Database connection failed:", err));
 
-// Sync Database Globally
-// Comment out to use migrations instead
-// sequelize.sync({ alter: true })
-//     .then(() => console.log("✅ Database synced successfully!"))
-//     .catch((err) => console.error("❌ Database sync failed:", err));
+// Sync Database
+sequelize.sync({ alter: true })
+    .then(() => console.log("✅ Database synced successfully!"))
+    .catch((err) => console.error("❌ Database sync failed:", err));
 
 module.exports = {
     sequelize,
