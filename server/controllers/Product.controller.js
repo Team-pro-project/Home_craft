@@ -1,5 +1,5 @@
 const {Product}=require('../database/sequelize/index');
-
+const { Op } = require("sequelize");
 module.exports = {
   getAllProduct: async(req, res) => {
     try{
@@ -64,4 +64,28 @@ updateProduct: async(req ,res)=>{
     res.send(err)
   }
 },
+
+ searchprod : async (req, res) => {
+  try {
+    const { search } = req.query;
+    console.log("Search query received:", search); 
+
+    if (!search) {
+      return res.status(400).json({ message: "Search query is required" });
+    }
+
+    const products = await Product.findAll({
+      where: {
+        name: { [Op.like]: `%${search}%` }
+      }
+    });
+
+    console.log("Products found:", products); 
+    res.status(200).json(products);
+  } catch (error) {
+    console.error("Error in search API:", error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
 }
