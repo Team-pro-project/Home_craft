@@ -1,4 +1,5 @@
 import React from 'react';
+import React from 'react';
 import './App.css';
 import Navbar from './layouts/navbar';
 import Footer from './layouts/footer';
@@ -11,6 +12,8 @@ import SearchPage from './pages/search/searchpage.jsx';
 
 function App() {
   return (
+    
+    <CartProvider> {/* ✅ Wrap the entire app in CartProvider */}
     
     <CartProvider> {/* ✅ Wrap the entire app in CartProvider */}
     <Router>
@@ -26,7 +29,9 @@ function App() {
       </div>
     </Router>
   </CartProvider>
+  </CartProvider>
   );
-}
+};
 
+export default App 
 export default App 
