@@ -3,7 +3,7 @@
   import "bootstrap-icons/font/bootstrap-icons.css";
   import { useCart } from "../components/Cart/CartContext.jsx";
   import Cart from "../components/Cart/Cart.jsx";
-  import { useNavigate } from "react-router-dom";
+  import { Navigate, useNavigate } from "react-router-dom";
   import axios from "axios";
 
   const Navbar = () => {
@@ -41,7 +41,7 @@
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
         <div className="container d-flex justify-content-between">
-          <a className="navbar-brand fw-bold fs-5" href="#">
+          <a className="navbar-brand fw-bold fs-5" href="/">
             HomeCraft
           </a>
 
@@ -56,13 +56,13 @@
                 onChange={(e) => handleSearch(e.target.value)}
                 onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
               />
-              <button className="btn btn-outline-secondary" type="button">
+              <button className="btn btn-outline-secondary" type="button" onClick={() => navigate("/search?search=" + search)}>
                 <i className="bi bi-search"></i>
               </button>
 
               {showDropdown && results.length > 0 && (
                 <ul className="dropdown-menu show w-100 position-absolute" style={{ top: "100%", left: 0, zIndex: 1000 }}>
-                  {results.map((product) => (
+                  {results.slice(0 , 5).map((product) => (
                     <li key={product.id}>
                       <div className="d-flex align-items-center">
                       <img src={product.imageUrl} alt={product.name} className="img-fluid" style={{ width: "25px  "  , borderRadius : "12px"}} />
