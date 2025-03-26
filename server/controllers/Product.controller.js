@@ -1,5 +1,5 @@
-const { Product, Category } = require('../database/sequelize/index');
-
+const {Product}=require('../database/sequelize/index');
+const { Op } = require("sequelize");
 module.exports = {
     getAllProduct: async (req, res) => {
         try {
