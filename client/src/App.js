@@ -1,5 +1,4 @@
 import React from 'react';
-import React from 'react';
 import './App.css';
 import Navbar from './layouts/navbar';
 import Footer from './layouts/footer';
@@ -9,14 +8,13 @@ import Cart from './components/Cart/Cart.jsx'
 import { CartProvider } from "./components/Cart/CartContext.jsx";
 import AllProducts from "./components/AllProducts.jsx";
 import SearchPage from './pages/search/searchpage.jsx';
+import ResetPassword from './components/Auth/Resetpassword.jsx';
 
 function App() {
   return (
     
     <CartProvider> {/* ✅ Wrap the entire app in CartProvider */}
-    
-    <CartProvider> {/* ✅ Wrap the entire app in CartProvider */}
-    <Router>
+        <Router>
       <div className="App">
         <Navbar />
         <Routes>
@@ -24,14 +22,13 @@ function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/AllProducts" element={<AllProducts />} />
+          <Route path="/reset-password" element={<ResetPassword/>} />
         </Routes>
         <Footer />
       </div>
     </Router>
   </CartProvider>
-  </CartProvider>
   );
 };
 
-export default App 
 export default App 

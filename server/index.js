@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require("./database/sequelize/index");
-
+const userroute = require("./routes/User.route")
 
 const productRoute=require("./routes/Product.route")
 const app = express();
