@@ -7,8 +7,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Cart from './components/Cart/Cart.jsx'
 import { CartProvider } from "./components/Cart/CartContext.jsx";
 import AllProducts from "./components/AllProducts.jsx";
+import ResetPassword from './components/Auth/Resetpassword.jsx';
 
-function App() {
+
+const App = () => {
+  const token = localStorage.getItem("token")
+let role = JSON.parse(token) || {}
+// console.log(role.role);
+
   return (
     
     <CartProvider> {/* ✅ Wrap the entire app in CartProvider */}
@@ -19,12 +25,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/AllProducts" element={<AllProducts />} />
+          <Route path="//reset-password" element={<ResetPassword />} />
+
         </Routes>
         <Footer />
       </div>
     </Router>
   </CartProvider>
   );
-}
+};
 
 export default App 
