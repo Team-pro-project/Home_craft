@@ -4,17 +4,42 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { useCart } from "../components/Cart/CartContext.jsx";
 import Cart from "../components/Cart/Cart.jsx";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import homecraftLogo from "../assets/Logo.png";
 import Signup from "../components/Auth/Sign.up";
 import Login from "../components/Auth/Log.in.jsx";
 import ForgotPassword from "../components/Auth/ForgotPassword.jsx";
+
 const Navbar = () => {
   const { getTotalItems } = useCart();
   const navigate = useNavigate();
-
+  const [search, setSearch] = useState("");
+  const [results, setResults] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [isSignup, setIsSignup] = useState(true);
-const [isForgotPassword , setIsForgotPassword] = useState(false)
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
+
+  const handleSearch = async (query) => {
+    setSearch(query);
+    
+    if (query.length > 1) {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/products/search`, {
+          params: { search: query } 
+        });
+    
+        setResults(response.data);
+        setShowDropdown(true);
+      } catch (error) {
+        console.error("Error fetching search results:", error);
+      }
+    } else {
+      setResults([]);
+      setShowDropdown(false);
+    }
+  };
+
   return (
     <>
       {sidebarVisible && (
@@ -37,16 +62,59 @@ const [isForgotPassword , setIsForgotPassword] = useState(false)
             <img src={homecraftLogo} alt="HomeCraft Logo" style={{ width: "150px", height: "80px" }} />
           </a>
 
-          <form className="d-flex w-50 d-lg-inline-flex" role="search">
+          <form className="d-flex w-50 d-lg-inline-flex position-relative" role="search">
             <div className="input-group w-100">
-              <input type="text" className="form-control" placeholder="Search products..." aria-label="Search" />
-              <button className="btn btn-outline-secondary" type="submit">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search products..."
+                aria-label="Search"
+                value={search}
+                onChange={(e) => handleSearch(e.target.value)}
+                onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
+              />
+              <button 
+                className="btn btn-outline-secondary" 
+                type="button" 
+                onClick={() => navigate("/search?search=" + search)}
+              >
                 <i className="bi bi-search"></i>
               </button>
+
+              {showDropdown && results.length > 0 && (
+                <ul 
+                  className="dropdown-menu show w-100 position-absolute" 
+                  style={{ top: "100%", left: 0, zIndex: 1000 }}
+                >
+                  {results.slice(0, 5).map((product) => (
+                    <li key={product.id}>
+                      <div className="d-flex align-items-center">
+                        <img 
+                          src={product.imageUrl} 
+                          alt={product.name} 
+                          className="img-fluid" 
+                          style={{ width: "25px", borderRadius: "12px" }} 
+                        />
+                        <a className="dropdown-item" href={`/product/${product.id}`}>
+                          {product.name}
+                        </a>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </form>
 
-          <button className="navbar-toggler d-lg-none ms-2 p-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <button
+            className="navbar-toggler d-lg-none ms-2 p-1"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
             <span className="navbar-toggler-icon"></span>
           </button>
         </div>
@@ -63,11 +131,16 @@ const [isForgotPassword , setIsForgotPassword] = useState(false)
               <a className="nav-link fw-semibold mx-2" href="#">Categories</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link fw-semibold mx-2">
-                <img src="https://cdn-icons-png.flaticon.com/512/5087/5087592.png" onClick={() => setSidebarVisible(true)} style={{ width: "32px", height: "32px", marginBottom: "4px" }} />
+              <a className="nav-link fw-semibold mx-2" onClick={() => setSidebarVisible(true)} style={{ cursor: 'pointer' }}>
+                <img 
+                  src="https://cdn-icons-png.flaticon.com/512/5087/5087592.png" 
+                  style={{ width: "32px", height: "32px", marginBottom: "4px" }} 
+                  alt="Profile"
+                />
               </a>
             </li>
           </ul>
+
           {sidebarVisible && (
             <div
               style={{
@@ -99,59 +172,58 @@ const [isForgotPassword , setIsForgotPassword] = useState(false)
                 &#10005;
               </button>
               {isSignup ? (
-  <>
-    <Signup />
-    <p
-      style={{
-        textAlign: "center",
-        cursor: "pointer",
-        marginTop: "10px",
-      }}
-      onClick={() => setIsSignup(false)}
-    >
-      Already have an account? <strong>Log in</strong>
-    </p>
-  </>
-) : isForgotPassword ? (
-  <>
-    <ForgotPassword />
-    <p
-      style={{
-        textAlign: "center",
-        cursor: "pointer",
-        marginTop: "10px",
-      }}
-      onClick={() => setIsForgotPassword(false)}
-    >
-      Remember your password? <strong>Log in</strong>
-    </p>
-  </>
-) : (
-  <>
-    <Login />
-    <p
-      style={{
-        textAlign: "center",
-        cursor: "pointer",
-        marginTop: "10px",
-      }}
-      onClick={() => setIsSignup(true)}
-    >
-      Don't have an account? <strong>Sign up</strong>
-    </p>
-    <p
-      style={{
-        textAlign: "center",
-        cursor: "pointer",
-        marginTop: "10px",
-      }}
-      onClick={() => setIsForgotPassword(true)}
-    >
-      Forgot your password? <strong>Reset it</strong>
-    </p>
-  </>
-)}
-
+                <>
+                  <Signup />
+                  <p
+                    style={{
+                      textAlign: "center",
+                      cursor: "pointer",
+                      marginTop: "10px",
+                    }}
+                    onClick={() => setIsSignup(false)}
+                  >
+                    Already have an account? <strong>Log in</strong>
+                  </p>
+                </>
+              ) : isForgotPassword ? (
+                <>
+                  <ForgotPassword />
+                  <p
+                    style={{
+                      textAlign: "center",
+                      cursor: "pointer",
+                      marginTop: "10px",
+                    }}
+                    onClick={() => setIsForgotPassword(false)}
+                  >
+                    Remember your password? <strong>Log in</strong>
+                  </p>
+                </>
+              ) : (
+                <>
+                  <Login />
+                  <p
+                    style={{
+                      textAlign: "center",
+                      cursor: "pointer",
+                      marginTop: "10px",
+                    }}
+                    onClick={() => setIsSignup(true)}
+                  >
+                    Don't have an account? <strong>Sign up</strong>
+                  </p>
+                  <p
+                    style={{
+                      textAlign: "center",
+                      cursor: "pointer",
+                      marginTop: "10px",
+                    }}
+                    onClick={() => setIsForgotPassword(true)}
+                  >
+                    Forgot your password? <strong>Reset it</strong>
+                  </p>
+                </>
+              )}
             </div>
           )}
 

@@ -5,7 +5,11 @@ const productRoute = require("./routes/Product.route");
 const orderRoute = require("./routes/Order.route");
 const { sequelize } = require("./database/sequelize/index");
 
-const app = express();
+require("./database/sequelize/index");
+const userroute = require("./routes/User.route")
+
+const productRoute=require("./routes/Product.route")
+*const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
@@ -20,16 +24,6 @@ sequelize.sync({ alter: true })
 //   res.send("Hello from backend!");
 // });
 
-// Example endpoint to check if database seeding worked
-// app.get("/api/products", async (req, res) => {
-//   try {
-//     const products = await Product.findAll({ include: Category });
-//     res.json(products);
-//   } catch (error) {
-//     console.error("Error fetching products:", error);
-//     res.status(500).json({ error: "Failed to fetch products" });
-//   }
-// });
 
 app.use("/api/user", userRoute);
 app.use("/api/products", productRoute);
