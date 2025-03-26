@@ -27,7 +27,7 @@ module.exports={
         from: process.env.EMAIL_USER,
         to: user.email,
         subject: "Password Reset",
-        html: `<p>Click heeeeereee <a href="${`http://localhost:3000/reset-password`}">here</a> to reset your password.</p>`,
+        html: `<p>Click heeeeereee <a href="${`http://localhost:3002/reset-password`}">here</a> to reset your password.</p>`,
       };
   
       const x = await transporter.sendMail(mailOptions);
