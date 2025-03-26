@@ -1,8 +1,6 @@
 import { Card, Button } from "react-bootstrap"
 import { Link } from "react-router"
 import { FaShoppingCart } from "react-icons/fa"
-import { Card } from "react-bootstrap"
-import { Link } from "react-router-dom"
 import AddToCartButton from "./Cart/AddToCartButton.jsx"
 
 const ProductCard = ({ product }) => {

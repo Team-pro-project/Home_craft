@@ -64,10 +64,7 @@ function isValidPassword(password) {
     return (
       <div id="login-form">
         <h1>Signup</h1>
-        <div id="member">
-          <h6>Already have an account ? <a href="/login"> Log in</a></h6>
-
-        </div>
+     
         
 
         <form onSubmit={signup}>
@@ -78,10 +75,17 @@ function isValidPassword(password) {
             name="email"
             value={email}
             onChange={(e) => {
-              setvalidE(!isValidEmail(e.target.value))
-
-      setemail(e.target.value);
-          }}
+              const value = e.target.value;
+                if (value) {
+                setvalidE(!isValidEmail(value));
+              } else {
+                setvalidE(false); 
+              }
+            
+              setemail(value);
+            }}
+            
+            
           />
            {validE && (
                 <p
@@ -106,10 +110,16 @@ function isValidPassword(password) {
             id="password"
             name="password"
             value={password}
-            onChange={(e) =>  {
-              setvalidP(!isValidPassword(e.target.value))
-
-              setPassword(e.target.value)}}
+            onChange={(e) => {
+              const value = e.target.value;
+                if (value) {
+                setvalidP(!isValidPassword(value));
+              } else {
+                setvalidP(false); 
+              }
+            
+              setPassword(value);
+            }}
           />
               {validP && (
                 <p

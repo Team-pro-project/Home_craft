@@ -3,9 +3,76 @@ const bcrypt = require('bcrypt');
 let env = require('dotenv').config();
 var jwt = require('jsonwebtoken');
 console.log("env",env);
-
-
+const nodemailer = require("nodemailer")
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD_APP_SPECIFIC ,
+  },
+});
 module.exports={
+
+
+  gmailverif: async (req, res) => {
+    const { email } = req.body;
+    try {
+      const user = await User.findOne({ where: { email } });
+      
+      if (!user) {
+        res.send("User not found");
+      }
+      
+      const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: user.email,
+        subject: "Password Reset",
+        html: `<p>Click heeeeereee <a href="${`http://localhost:3000/reset-password`}">here</a> to reset your password.</p>`,
+      };
+  
+      const x = await transporter.sendMail(mailOptions);
+      console.log(x, "x");  
+  
+     
+      res.send( user);
+    } catch (error) {
+      console.error(error); 
+      
+    }
+  }
+  , 
+  resetpassword: async (req, res) => {
+    const { password, email } = req.body;
+    try {
+    
+      const user = await User.findOne({ where: { email } });
+  
+      if (!user) {
+        res.send( "User not found" ); 
+      }
+  
+     
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user.password = hashedPassword;
+  
+      
+      await user.save();
+  
+    
+      console.log(user);
+  
+    
+      res.send( "Password successfully reset!" );
+    } catch (error) {
+   
+      console.log(error);
+
+    }
+  },
+  
+
+
+
     login: async (req, res) => {
         try {
           const { email, password } = req.body;

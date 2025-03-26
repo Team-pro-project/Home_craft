@@ -3,13 +3,12 @@ import './App.css';
 import Navbar from './layouts/navbar';
 import Footer from './layouts/footer';
 import Home from './pages/home/Home';
-import Test from "./components/Auth/Test.jsx"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Cart from './components/Cart/Cart.jsx'
+import { CartProvider } from "./components/Cart/CartContext.jsx";
+import AllProducts from "./components/AllProducts.jsx";
+import ResetPassword from './components/Auth/Resetpassword.jsx';
 
-import React from "react";
-import { BrowserRouter as Router, Routes, Route ,Navigate} from 'react-router';
-
-import Signup from "./components/Auth/Sign.up.jsx";
-import Login from "./components/Auth/Log.in.jsx";
 
 const App = () => {
   const token = localStorage.getItem("token")
@@ -26,6 +25,8 @@ let role = JSON.parse(token) || {}
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/AllProducts" element={<AllProducts />} />
+          <Route path="//reset-password" element={<ResetPassword />} />
+
         </Routes>
         <Footer />
       </div>

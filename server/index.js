@@ -4,7 +4,6 @@ const userroute=require("./routes/User.route")
 require("./database/sequelize/index");
 const { sequelize, User, Category, Product, Order } = require("./database/sequelize/index");
 require("./database/sequelize/index");
-const  Product  = require("./database/Product.model");
 const productRoute=require("./routes/Product.route")
 const app = express();
 const PORT = 5000;
