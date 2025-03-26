@@ -1,20 +1,20 @@
 const express = require("express");
 const cors = require("cors");
-const userroute=require("./routes/User.route")
-require("./database/sequelize/index");
-const { sequelize, User, Category, Product, Order } = require("./database/sequelize/index");
-require("./database/sequelize/index");
-const productRoute=require("./routes/Product.route")
+const userRoute = require("./routes/User.route");
+const productRoute = require("./routes/Product.route");
+const orderRoute = require("./routes/Order.route");
+const { sequelize } = require("./database/sequelize/index");
+
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
 
-// Sync database with models (uncomment if needed)
-// sequelize.sync({ alter: true })
-//   .then(() => console.log("✅ Database synced successfully!"))
-//   .catch((err) => console.error("❌ Database sync failed:", err));
+// Sync database with models
+sequelize.sync({ alter: true })
+  .then(() => console.log("✅ Database synced successfully!"))
+  .catch((err) => console.error("❌ Database sync failed:", err));
 
 // app.get("/", (req, res) => {
 //   res.send("Hello from backend!");
@@ -31,10 +31,10 @@ app.use(express.json());
 //   }
 // });
 
-
-app.use("/user",userroute)
-app.use( "/api/products", productRoute );
+app.use("/api/user", userRoute);
+app.use("/api/products", productRoute);
+app.use("/api/orders", orderRoute);
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
