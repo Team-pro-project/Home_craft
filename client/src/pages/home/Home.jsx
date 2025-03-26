@@ -1,5 +1,5 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import ProductCard from "../../components/ProductCard";
 import ProductShowcase from "../../components/ProductShowcase";
 import Intro from "../../components/home/Intro";

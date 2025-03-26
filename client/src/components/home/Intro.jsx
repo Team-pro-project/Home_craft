@@ -9,11 +9,22 @@ const Intro = () => {
         Explore the Elegance of Modern <br />
         Home Furnishings
       </h1>
-      <p className="text-muted fs-5">
-        Indulge in the perfect blend of style, comfort, and sophistication,
-        where innovative design seamlessly integrates with luxurious relaxation
-        in every meticulously crafted piece .
-      </p>
+      <h6
+  style={{
+    color: "#6A4E3C",
+    fontSize: "18px",
+    textAlign: "center",
+    lineHeight: "1.6",
+    margin: "0 auto",
+    maxWidth: "80%", // Ensures text wraps to 2 lines
+    whiteSpace: "normal",
+  }}
+>
+  Indulge in the perfect blend of style, comfort, and sophistication, where
+  innovative design seamlessly integrates with luxurious relaxation in every
+  meticulously crafted piece.
+</h6>
+
 
       {/* Image */}
       <div className="mt-4">
