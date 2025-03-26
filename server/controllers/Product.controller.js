@@ -1,17 +1,13 @@
 const { Product, Category } = require('../database/sequelize/index');
 
 const {Product}=require('../database/sequelize/index');
+const {Product, Category}=require('../database/sequelize/index');
 const { Op } = require("sequelize");
 module.exports = {
     getAllProduct: async (req, res) => {
         try {
             console.log("Fetching all products...");
-            const products = await Product.findAll({
-                include: [{
-                    model: Category,
-                    attributes: ['name']
-                }]
-            });
+            const products = await Product.findAll();
             console.log(`Found ${products.length} products`);
             res.json(products);
         } catch (error) {
@@ -97,24 +93,7 @@ module.exports = {
                 stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
             });
         }
-    }
-};
-updateProduct: async(req ,res)=>{
-  try{
-    var {id}=req.params
-    var updatePost=await Product.update(req.body,{
-      where:{
-        id:id,
-      },
-      
-    })
-    res.json('updated')
-  }
-  catch (err){
-    res.send(err)
-  }
-},
-
+    },
  searchprod : async (req, res) => {
   try {
     const { search } = req.query;
@@ -138,4 +117,4 @@ updateProduct: async(req ,res)=>{
   }
 }
 
-}
+};
